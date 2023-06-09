@@ -3,4 +3,6 @@
  * Do not modify this file manually
  */
 
+export * from './bot';
+export * from './chat';
 export * from './user';
