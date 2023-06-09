@@ -5,7 +5,7 @@ export const createChat = Joi.object({
     chatId: Joi.string().required()
 })
 
-export const deleteChat = Joi.object({
+export const removeChat = Joi.object({
     name: Joi.string(),
     chatId: Joi.string()
 })
@@ -13,12 +13,13 @@ export const deleteChat = Joi.object({
 export const updateChat = Joi.object({
     name: Joi.string(),
     chatId: Joi.string(),
-
-    newName: Joi.string(),
-    newChatId: Joi.string()
-})
-    .nand('name', 'chatId')
-    .nand('newName', 'newChatId')
+    chat: Joi.object({
+        name: Joi.string(),
+        chatId: Joi.string()
+    })
+        .or('name', 'chatId')
+        .required()
+}).nand('chatId', 'name')
 
 export const getChat = Joi.object({
     name: Joi.string(),

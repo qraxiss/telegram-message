@@ -10,11 +10,15 @@ export const removeBot = Joi.object({
 })
 
 export const getBot = Joi.object({
-    name: Joi.string().required()
+    name: Joi.string()
 })
 
 export const updateBot = Joi.object({
     name: Joi.string().required(),
-    newName: Joi.string(),
-    newToken: Joi.string()
-}).or('newName', 'newToken')
+    bot: Joi.object({
+        name: Joi.string(),
+        token: Joi.string()
+    })
+        .or('name', 'token')
+        .required()
+})

@@ -8,19 +8,21 @@ export interface createChat {
   name?: string;
 }
 
-export interface deleteChat {
-  chatId?: string;
-  name?: string;
-}
-
 export interface getChat {
   chatId?: string;
   name?: string;
 }
 
-export interface updateChat {
+export interface removeChat {
   chatId?: string;
   name?: string;
-  newChatId?: string;
-  newName?: string;
+}
+
+export interface updateChat {
+  chat: {
+    chatId?: string;
+    name?: string;
+  };
+  chatId?: string;
+  name?: string;
 }

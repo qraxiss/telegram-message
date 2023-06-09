@@ -9,7 +9,7 @@ export interface createBot {
 }
 
 export interface getBot {
-  name: string;
+  name?: string;
 }
 
 export interface removeBot {
@@ -17,7 +17,9 @@ export interface removeBot {
 }
 
 export interface updateBot {
+  bot: {
+    name?: string;
+    token?: string;
+  };
   name: string;
-  newName?: string;
-  newToken?: string;
 }
