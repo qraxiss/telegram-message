@@ -6,6 +6,9 @@ import { prop, getModelForClass, modelOptions } from '@typegoose/typegoose'
 export class Chat {
     @prop({ required: true })
     chatId!: string
+
+    @prop({ unique: true })
+    name?: string
 }
 
 export const ChatModel = getModelForClass(Chat)
