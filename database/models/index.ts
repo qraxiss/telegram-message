@@ -1,5 +1,5 @@
-import { RouteModel } from './route'
-import { BotModel } from './bot'
-import { ChatModel } from './chat'
+import { RouteModel, Route } from './route'
+import { BotModel, Bot } from './bot'
+import { ChatModel, Chat } from './chat'
 
-export { RouteModel, BotModel, ChatModel }
+export { RouteModel, BotModel, ChatModel, Route, Bot, Chat }
