@@ -54,7 +54,7 @@ export async function updateRoute(params: any): Promise<boolean> {
         {
             name: value.name
         },
-        filter(value, ['name'])
+        value.route
     )
 
     if (!result) {
