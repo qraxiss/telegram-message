@@ -5,5 +5,6 @@
 
 export * from './bot';
 export * from './chat';
+export * from './message';
 export * from './route';
 export * from './user';

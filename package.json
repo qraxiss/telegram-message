@@ -18,6 +18,8 @@
   },
   "devDependencies": {
     "@types/express-session": "^1.17.7",
+    "@types/node-telegram-bot-api": "^0.61.6",
+    "joi-to-typescript": "^4.4.1",
     "nodemon": "^2.0.22",
     "ts-node": "^10.9.1",
     "joi-to-typescript": "^4.4.1"
