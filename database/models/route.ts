@@ -8,10 +8,10 @@ import { Bot } from './bot'
 })
 export class Route {
     @prop({ required: true, ref: Bot })
-    bot!: Bot
+    bot!: Ref<Bot> | Bot
 
-    @prop({ required: true, ref: Chat }) // Assuming the chats property references the Chat class
-    chats!: Ref<Chat>[]
+    @prop({ required: true, ref: () => Chat })
+    public chats!: Ref<Chat>[] | Chat[] // unique
 
     @prop({ required: true, unique: true })
     name!: string
