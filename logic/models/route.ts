@@ -2,8 +2,6 @@ import * as types from '../types'
 import * as validator from '../validators/route'
 import { validate } from '../helpers/validator'
 import { RouteModel, ChatModel, BotModel, Route, Bot, Chat } from '../../database/models'
-import * as chatLogic from './chat'
-import * as botLogic from './bot'
 
 import { Ref } from '@typegoose/typegoose'
 
