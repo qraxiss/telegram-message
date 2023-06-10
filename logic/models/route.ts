@@ -28,18 +28,8 @@ export async function getRoute(params: any): Promise<Route[]> {
             await RouteModel.find(value)
         )?.map(async (item) => {
             item = item.toObject()
-
-            if (item.bot) {
-                const bot = await BotModel.findById(item.bot)
-                item.bot = bot as Ref<Bot>
-            }
-            if (item.chats) {
-                const chats = await ChatModel.find({ _id: { $in: item.chats } })
-                item.chats = chats as Ref<Chat>[]
-            }
-
-            console.log(item)
-
+            item.bot = (await BotModel.findById(item.bot)) as Bot
+            item.chats = (await ChatModel.find({ _id: { $in: item.chats } })) as Chat[]
             return item
         })
     )
