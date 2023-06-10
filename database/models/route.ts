@@ -7,11 +7,11 @@ import { Bot } from './bot'
     options: { allowMixed: 0 }
 })
 export class Route {
-    @prop({ required: true, ref: Bot })
-    bot!: Ref<Bot> | Bot
+    @prop({ required: true, ref: () => Bot })
+    bot!: Bot | Ref<Bot>
 
     @prop({ required: true, ref: () => Chat })
-    public chats!: Ref<Chat>[] | Chat[] // unique
+    chats!: Chat[] | Ref<Chat>[]
 
     @prop({ required: true, unique: true })
     name!: string
