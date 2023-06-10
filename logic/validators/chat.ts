@@ -8,7 +8,7 @@ export const createChat = Joi.object({
 export const removeChat = Joi.object({
     name: Joi.string(),
     chatId: Joi.string()
-})
+}).xor('chatId', 'name')
 
 export const updateChat = Joi.object({
     name: Joi.string(),
