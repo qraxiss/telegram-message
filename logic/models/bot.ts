@@ -7,41 +7,10 @@ import { BotModel, Bot } from '../../database/models'
 
 import { NotFoundError } from '../../errors/errors'
 
-export async function create(params: any) {
+export async function create(params: any): Promise<Bot> {
     const value = validate(params, validator.createBot) as types.createBot
 
     const result = await BotModel.create(value)
-
-    return result.toObject() as Bot
-}
-
-export async function update(params: any) {
-    const value = validate(params, validator.updateBot) as types.updateBot
-
-    const result = await BotModel.findOneAndUpdate(
-        {
-            name: value.name
-        },
-        value.bot
-    )
-
-    if (!result) {
-        throw new NotFoundError('Bot not found!')
-    }
-
-    return result.toObject() as Bot
-}
-
-export async function remove(params: any) {
-    const value = validate(params, validator.removeBot) as types.removeBot
-
-    const result = await BotModel.findOneAndRemove({
-        name: value.name
-    })
-
-    if (!result) {
-        throw new NotFoundError('Bot not found!')
-    }
 
     return result.toObject() as Bot
 }
@@ -59,9 +28,34 @@ export async function get(params: any): Promise<Bot | Bot[]> {
         })
     }
 
-    if (!result) {
+    if (!result || result.length === 0) {
         throw new NotFoundError('Bot not found!')
     }
 
     return result
+}
+
+export async function update(params: any): Promise<boolean> {
+    const value = validate(params, validator.updateBot) as types.updateBot
+
+    const result = await BotModel.updateOne(
+        {
+            name: value.name
+        },
+        value.bot
+    )
+
+    if (result.matchedCount === 0) {
+        throw new NotFoundError('Bot not found!')
+    }
+
+    return result.modifiedCount > 0
+}
+
+export async function remove(params: any): Promise<boolean> {
+    const value = validate(params, validator.removeBot) as types.removeBot
+
+    const result = await BotModel.deleteOne({ name: value.name })
+
+    return result.deletedCount > 0
 }

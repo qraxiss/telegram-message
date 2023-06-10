@@ -7,41 +7,10 @@ import { ChatModel, Chat } from '../../database/models'
 
 import { NotFoundError } from '../../errors/errors'
 
-import { filter } from '../helpers/filter'
-
-export async function create(params: any) {
+export async function create(params: any): Promise<Chat> {
     const value = validate(params, validator.createChat) as types.createChat
 
     const result = await ChatModel.create(value)
-
-    return result.toObject() as Chat
-}
-
-export async function update(params: any) {
-    const value = validate(params, validator.updateChat) as types.updateChat
-
-    const result = await ChatModel.findOneAndUpdate(
-        {
-            name: value.name!
-        },
-        value.chat
-    )
-
-    if (!result) {
-        throw new NotFoundError('Chat not found!')
-    }
-
-    return result.toObject() as Chat
-}
-
-export async function remove(params: any) {
-    const value = validate(params, validator.removeChat) as types.removeChat
-
-    const result = await ChatModel.findOneAndRemove(filter(value, ['name']))
-
-    if (!result) {
-        throw new NotFoundError('Chat not found!')
-    }
 
     return result.toObject() as Chat
 }
@@ -59,9 +28,29 @@ export async function get(params: any): Promise<Chat | Chat[]> {
         })
     }
 
-    if (!result) {
+    if (!result || result.length === 0) {
         throw new NotFoundError('Chat not found!')
     }
 
     return result
+}
+
+export async function update(params: any): Promise<boolean> {
+    const value = validate(params, validator.updateChat) as types.updateChat
+
+    const result = await ChatModel.updateOne({ name: value.name }, value.chat)
+
+    if (result.matchedCount === 0) {
+        throw new NotFoundError('Chat not found!')
+    }
+
+    return result.modifiedCount > 0
+}
+
+export async function remove(params: any): Promise<boolean> {
+    const value = validate(params, validator.removeChat) as types.removeChat
+
+    const result = await ChatModel.deleteOne(value)
+
+    return result.deletedCount > 0
 }
